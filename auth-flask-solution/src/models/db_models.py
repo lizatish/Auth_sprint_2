@@ -1,6 +1,7 @@
 import re
 import uuid
 import datetime
+import typing
 
 from flask import current_app
 from sqlalchemy import ForeignKey, Enum
@@ -48,6 +49,7 @@ class User(UUIDMixin, db.Model):
     """Модель пользователя."""
 
     username = db.Column(db.String, unique=True, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=True)
     role_id = db.Column(UUID(as_uuid=True), ForeignKey("role.id"))
     password = db.Column(db.String(400), nullable=False)
     stories = db.relationship('AccountHistory', backref='user')
@@ -61,3 +63,18 @@ class User(UUIDMixin, db.Model):
             method=current_app.config['AUTH_HASH_METHOD'],
             salt_length=current_app.config['AUTH_HASH_SALT_LENGTH'],
         )
+
+
+class SocialAccount(UUIDMixin, db.Model):
+    """Модель социальных аккаунтов."""
+
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship(User, backref=db.backref('social_accounts', lazy=True))
+
+    social_id = db.Column(db.Text, nullable=False)
+    social_name = db.Column(db.Text, nullable=False)
+
+    __table_args__ = (db.UniqueConstraint('social_id', 'social_name', name='social_pk'), )
+
+    def __repr__(self):
+        return f'<SocialAccount {self.social_name}:{self.user_id}>' 

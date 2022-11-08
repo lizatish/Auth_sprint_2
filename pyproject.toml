@@ -26,6 +26,8 @@ redis = "^4.3.4"
 orjson = "^3.8.1"
 flask-caching = "^2.0.1"
 flask-migrate = "^3.1.0"
+google-auth-oauthlib = "^0.7.1"
+authlib = "^1.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.0"

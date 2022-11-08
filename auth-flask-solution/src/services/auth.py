@@ -1,10 +1,11 @@
 from functools import lru_cache
+import uuid
 
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 from db.cache import CacheStorage
 from db.redis import get_redis_storage
-from models.db_models import User, Role, db, AccountHistory
+from models.db_models import User, Role, db, AccountHistory, SocialAccount
 from models.general import RoleType
 from services.cache import CacheService
 from services.utils import get_or_create
@@ -61,6 +62,21 @@ class AuthService:
         self.db_connection.session.add(user)
         self.db_connection.session.commit()
 
+    def create_oauth_user(self, social_id: str, social_name: str, email: str, username: str = None):
+        """Создать пользователя и социальный аккаунт."""
+        role = get_or_create(self.db_connection.session, Role, label=RoleType.STANDARD)
+        if not username:
+            username = email.split('@')[0]
+        user = User(username=username, role=role, email=email)
+        password = uuid.uuid4().hex.upper()[0:8]
+        user.set_password(password)
+        self.db_connection.session.add(user)
+        self.db_connection.session.commit()
+        social = SocialAccount(social_name=social_name, social_id=social_id, user=user)
+        self.db_connection.session.add(social)
+        self.db_connection.session.commit()
+        return social
+
     def create_superuser(self, username: str, password: str):
         """Создать супер-пользователя."""
         role = get_or_create(self.db_connection.session, Role, label=RoleType.ADMIN)
@@ -105,6 +121,11 @@ class AuthService:
     def get_user_by_username(username: str) -> User:
         """Получить пользователя по его username."""
         return User.query.filter_by(username=username).one_or_none()
+
+    @staticmethod
+    def get_user_social(social_id: str, social_name: str) -> SocialAccount:
+        """Получить социальный аккаунт."""
+        return SocialAccount.query.filter_by(social_id=social_id, social_name=social_name).one_or_none()
 
     @staticmethod
     def get_user_by_id(user_id: str):

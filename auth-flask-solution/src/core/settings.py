@@ -8,10 +8,14 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     """Базовый класс конфигурации."""
 
+    GOOGLE_CLIENT_ID: str
+    GOOGLE_CLIENT_SECRET: str
+    GOOGLE_CLIENT_CONF_URL: str
+
     PAGE: int = 1
     PER_PAGE: int = 5
 
-    AUTH_PORT: int = 5556
+    AUTH_PORT: int = 5000
 
     # Базовые настройки приложения
     SECRET_KEY: str

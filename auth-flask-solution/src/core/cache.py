@@ -5,7 +5,7 @@ cache: Cache | None = None
 
 
 def create_cache(app: Flask):
-    """Инициализирует jwt."""
+    """Инициализирует cache."""
     global cache
     cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
     with app.app_context():
