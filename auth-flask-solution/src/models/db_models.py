@@ -1,7 +1,6 @@
 import re
 import uuid
 import datetime
-import typing
 
 from flask import current_app
 from sqlalchemy import ForeignKey, Enum
@@ -77,4 +76,4 @@ class SocialAccount(UUIDMixin, db.Model):
     __table_args__ = (db.UniqueConstraint('social_id', 'social_name', name='social_pk'), )
 
     def __repr__(self):
-        return f'<SocialAccount {self.social_name}:{self.user_id}>' 
+        return f'<SocialAccount {self.social_name}:{self.user_id}>'
