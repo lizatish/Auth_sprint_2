@@ -17,6 +17,7 @@ def create_oauth(app: Flask):
             }
         )
 
+
 def get_oauth_instance() -> OAuth:
     """Возвращает экземпляр oauth."""
     return oauth

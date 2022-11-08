@@ -15,6 +15,7 @@ def login():
     oauth.google.save_authorize_data(redirect_uri=redirect_uri, **uri)
     return JsonService.return_success_response(url=uri['url'])
 
+
 @auth_google_v1.route('/auth')
 def auth():
     token = oauth.google.authorize_access_token()
