@@ -1,9 +1,10 @@
 import re
 import uuid
 import datetime
+from typing import Optional
 
 from flask import current_app
-from sqlalchemy import ForeignKey, Enum
+from sqlalchemy import ForeignKey, Enum, or_
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import declared_attr
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -62,6 +63,10 @@ class User(UUIDMixin, db.Model):
             method=current_app.config['AUTH_HASH_METHOD'],
             salt_length=current_app.config['AUTH_HASH_SALT_LENGTH'],
         )
+
+    @classmethod
+    def get_user_by_universal_login(cls, username: Optional[str] = None, email: Optional[str] = None):
+        return cls.query.filter(or_(cls.username == username, cls.email == email)).first() 
 
 
 class SocialAccount(UUIDMixin, db.Model):

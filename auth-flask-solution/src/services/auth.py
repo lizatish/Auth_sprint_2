@@ -64,14 +64,16 @@ class AuthService:
 
     def create_oauth_user(self, social_id: str, social_name: str, email: str, username: str = None):
         """Создать пользователя и социальный аккаунт."""
-        role = get_or_create(self.db_connection.session, Role, label=RoleType.STANDARD)
-        if not username:
-            username = email.split('@')[0]
-        user = User(username=username, role=role, email=email)
-        password = uuid.uuid4().hex.upper()[0:8]
-        user.set_password(password)
-        self.db_connection.session.add(user)
-        self.db_connection.session.commit()
+        user = User.get_user_by_universal_login(email=email, username=username)
+        if not user:
+            role = get_or_create(self.db_connection.session, Role, label=RoleType.STANDARD)
+            if not username:
+                username = email.split('@')[0]
+            user = User(username=username, role=role, email=email)
+            password = uuid.uuid4().hex.upper()[0:8]
+            user.set_password(password)
+            self.db_connection.session.add(user)
+            self.db_connection.session.commit()
         social = SocialAccount(social_name=social_name, social_id=social_id, user=user)
         self.db_connection.session.add(social)
         self.db_connection.session.commit()

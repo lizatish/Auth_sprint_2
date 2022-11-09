@@ -8,7 +8,7 @@ oauth = get_oauth_instance()
 
 
 @auth_socials_v1.route('/google/login')
-def login():
+def login_google():
     redirect_uri = url_for('auth_socials_v1.auth_google', _external=True)
     uri = oauth.google.create_authorization_url(redirect_uri)
     oauth.google.save_authorize_data(redirect_uri=redirect_uri, **uri)
