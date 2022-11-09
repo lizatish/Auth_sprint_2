@@ -6,6 +6,7 @@ from models.general import SocialLoginType
 from services.auth import AuthService, get_auth_service
 from services.json import JsonService
 from services.utils import info_from_vk
+from core.settings import VK_API_VERSION
 
 oauth = get_oauth_instance()
 
@@ -21,9 +22,14 @@ def vk_login():
 
 @auth_socials_v1.route('/vk/callback')
 def vk_auth():
-    """Функция обратного вызова для аутентификации пользователя через yandex."""
+    """Функция обратного вызова для аутентификации пользователя через vkontakte."""
     oauth.vk.authorize_access_token()
-    user_data_response = oauth.vk.get('info')
+    # https: // api.vk.com / method / users.get?user_id = 210700286 & v = 5.131
+    user_data_response = oauth.vk.get(
+        scope='email',
+        response_type='code',
+        v=VK_API_VERSION,
+        )
     email, social_id = info_from_vk(user_data_response)
     account = AuthService.get_user_social(social_id=social_id, social_name=SocialLoginType.VK.value)
 

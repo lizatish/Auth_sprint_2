@@ -46,6 +46,6 @@ def info_from_twitter(token):
 
 
 def info_from_vk(user_data_response):
-    """Возвращает email и id пользователя, извлеченные из данных от yandex."""
+    """Возвращает email и id пользователя, извлеченные из данных от vkontakte."""
     user_data = json.loads(user_data_response.content)
     return user_data['email'], user_data['id']
