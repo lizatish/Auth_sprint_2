@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     PAGE: int = 1
     PER_PAGE: int = 5
 
-    AUTH_PORT: int = 5000
+    AUTH_PORT: int = 4555
 
     # Базовые настройки приложения
     SECRET_KEY: str

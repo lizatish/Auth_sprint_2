@@ -23,11 +23,11 @@ def create_app(config_filename: object) -> Flask:
     # Регистрация отдельных компонентов (API)
     from api.v1.auth import auth_v1
     from api.v1.roles import roles_v1
-    from api.v1.socials.google import auth_google_v1
+    from api.v1.socials import auth_socials_v1
     from core.commands import usersbp
 
     app.register_blueprint(usersbp)
-    app.register_blueprint(auth_v1)
-    app.register_blueprint(roles_v1)
-    app.register_blueprint(auth_google_v1)
+    app.register_blueprint(auth_v1, url_prefix='/auth/v1/users/')
+    app.register_blueprint(roles_v1, url_prefix='/auth/v1/roles/')
+    app.register_blueprint(auth_socials_v1, url_prefix='/auth/v1/oauth/')
     return app

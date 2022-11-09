@@ -1,23 +1,22 @@
-from flask import url_for, Blueprint
+from flask import url_for
 from core.oauth import get_oauth_instance
 from services.json import JsonService
 from services.auth import AuthService, get_auth_service
-
+from api.v1.socials import auth_socials_v1
 
 oauth = get_oauth_instance()
-auth_google_v1 = Blueprint('auth_google_v1', __name__)
 
 
-@auth_google_v1.route('/login-google')
+@auth_socials_v1.route('/google/login')
 def login():
-    redirect_uri = url_for('auth_google_v1.auth', _external=True)
+    redirect_uri = url_for('auth_socials_v1.auth_google', _external=True)
     uri = oauth.google.create_authorization_url(redirect_uri)
     oauth.google.save_authorize_data(redirect_uri=redirect_uri, **uri)
     return JsonService.return_success_response(url=uri['url'])
 
 
-@auth_google_v1.route('/auth')
-def auth():
+@auth_socials_v1.route('/google/callback')
+def auth_google():
     token = oauth.google.authorize_access_token()
     email = token['userinfo']['email']
     social_id = token['userinfo']['sub']
