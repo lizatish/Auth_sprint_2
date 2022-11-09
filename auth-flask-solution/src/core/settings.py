@@ -17,8 +17,14 @@ class Settings(BaseSettings):
 
     GOOGLE_CLIENT_ID: str
     GOOGLE_CLIENT_SECRET: str
-    GOOGLE_SERVER_METADATA_URL: str
+    GOOGLE_SERVER_METADATA_URL: str = 'https://accounts.google.com/.well-known/openid-configuration'
     GOOGLE_CLIENT_KWARGS: dict = {'scope': 'openid email profile'}
+
+    YANDEX_CLIENT_ID: str
+    YANDEX_CLIENT_SECRET: str
+    YANDEX_API_BASE_URL: str = 'https://login.yandex.ru/'
+    YANDEX_AUTHORIZE_URL: str = 'https://oauth.yandex.com/authorize'
+    YANDEX_ACCESS_TOKEN_URL: str = 'https://oauth.yandex.com/token'
 
     PAGE: int = 1
     PER_PAGE: int = 5

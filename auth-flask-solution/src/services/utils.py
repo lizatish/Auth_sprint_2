@@ -1,3 +1,4 @@
+import json
 import uuid
 
 
@@ -31,3 +32,9 @@ def info_from_facebook(data):
     """Возвращает email и id пользователя, извлеченные из данных от facebook."""
     profile = data.json()
     return profile['email'], profile['id']
+
+
+def info_from_yandex(user_data_response):
+    """Возвращает email и id пользователя, извлеченные из данных от yandex."""
+    user_data = json.loads(user_data_response.content)
+    return user_data['default_email'], user_data['id']

@@ -1,8 +1,8 @@
 from flasgger import Swagger
 from flask import Flask
 
-from core.jwt import create_jwt
 from core.cache import create_cache
+from core.jwt import create_jwt
 from core.oauth import create_oauth
 from db.db_factory import create_db
 

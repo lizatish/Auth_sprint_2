@@ -1,10 +1,11 @@
 from flask import url_for
-from core.oauth import get_oauth_instance
-from services.json import JsonService
-from services.auth import AuthService, get_auth_service
+
 from api.v1.socials import auth_socials_v1
-from services.utils import info_from_google_token
+from core.oauth import get_oauth_instance
 from models.general import SocialLoginType
+from services.auth import AuthService, get_auth_service
+from services.json import JsonService
+from services.utils import info_from_google_token
 
 oauth = get_oauth_instance()
 
