@@ -13,6 +13,7 @@ def create_oauth(app: Flask):
         oauth.register(name='facebook')
         oauth.register(name='yandex')
         oauth.register(name='twitter')
+        oauth.register(name='vk')
 
 
 def get_oauth_instance() -> OAuth:

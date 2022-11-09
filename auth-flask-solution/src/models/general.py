@@ -17,3 +17,4 @@ class SocialLoginType(str, enum.Enum):
     YANDEX = 'yandex'
     FACEBOOK = 'facebook'
     TWITTER = 'twitter'
+    VK = 'vk'

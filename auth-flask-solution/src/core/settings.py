@@ -32,6 +32,13 @@ class Settings(BaseSettings):
     TWITTER_REQUEST_TOKEN_URL: str = 'https://api.twitter.com/oauth/request_token'
     TWITTER_ACCESS_TOKEN_URL: str = 'https://api.twitter.com/oauth/access_token'
 
+    VK_CLIENT_ID: str
+    VK_CLIENT_SECRET: str
+    VK_API_VERSION: str = '5.131'
+    VK_API_BASE_URL: str = 'https://api.vk.com/method'
+    VK_AUTHORIZE_URL: str = 'https://oauth.vk.com/authorize'
+    VK_ACCESS_TOKEN_URL: str = 'https://oauth.vk.com/access_token'
+
     PAGE: int = 1
     PER_PAGE: int = 5
 
