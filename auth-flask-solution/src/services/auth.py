@@ -1,5 +1,5 @@
-from functools import lru_cache
 import uuid
+from functools import lru_cache
 
 from flask_jwt_extended import create_access_token, create_refresh_token
 
@@ -62,7 +62,7 @@ class AuthService:
         self.db_connection.session.add(user)
         self.db_connection.session.commit()
 
-    def create_oauth_user(self, social_id: str, social_name: str, email: str, username: str = None):
+    def create_oauth_user(self, social_id: str, social_name: str, email: str = None, username: str = None):
         """Создать пользователя и социальный аккаунт."""
         user = User.get_user_by_universal_login(email=email, username=username)
         if not user:

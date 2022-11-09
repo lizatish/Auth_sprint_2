@@ -12,6 +12,7 @@ def create_oauth(app: Flask):
         oauth.register(name='google')
         oauth.register(name='facebook')
         oauth.register(name='yandex')
+        oauth.register(name='twitter')
 
 
 def get_oauth_instance() -> OAuth:

@@ -2,4 +2,4 @@ from flask import Blueprint
 
 auth_socials_v1 = Blueprint('auth_socials_v1', __name__)
 
-from . import google, facebook, yandex  # noqa: F401
+from . import google, facebook, yandex, twitter  # noqa: F401
