@@ -24,10 +24,10 @@ def auth_twitter():
     """Функция обратного вызова для аутентификации пользователя через twitter."""
     token = oauth.twitter.authorize_access_token()
     social_id, username = info_from_twitter(token)
-    account = AuthService.get_user_social(social_id=social_id, social_name=SocialLoginType.TWITTER)
+    account = AuthService.get_user_social(social_id=social_id, social_name=SocialLoginType.TWITTER.value)
     if not account:
         account = get_auth_service().create_oauth_user(
-            social_id=social_id, social_name=SocialLoginType.TWITTER, username=username
+            social_id=social_id, social_name=SocialLoginType.TWITTER.value, username=username
         )
     access_token, refresh_token = get_auth_service().create_tokens(account.user)
     get_auth_service().add_to_history(account.user)
