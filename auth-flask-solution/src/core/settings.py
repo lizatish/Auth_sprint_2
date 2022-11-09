@@ -8,10 +8,22 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     """Базовый класс конфигурации."""
 
+    FACEBOOK_CLIENT_ID: str
+    FACEBOOK_CLIENT_SECRET: str
+    FACEBOOK_ACCESS_TOKEN_URL: str = 'https://graph.facebook.com/oauth/access_token'
+    FACEBOOK_AUTHORIZE_URL: str = 'https://www.facebook.com/dialog/oauth'
+    FACEBOOK_API_BASE_URL: str = 'https://graph.facebook.com/'
+    FACEBOOK_CLIENT_KWARGS: dict = {'scope': 'email'}
+
+    GOOGLE_CLIENT_ID: str
+    GOOGLE_CLIENT_SECRET: str
+    GOOGLE_SERVER_METADATA_URL: str
+    GOOGLE_CLIENT_KWARGS: dict = {'scope': 'openid email profile'}
+
     PAGE: int = 1
     PER_PAGE: int = 5
 
-    AUTH_PORT: int = 5556
+    AUTH_PORT: int = 4555
 
     # Базовые настройки приложения
     SECRET_KEY: str
