@@ -9,6 +9,7 @@ class RoleType(str, enum.Enum):
     ADMIN = 'admin'
     TEST = 'test'
 
+
 class SocialLoginType(str, enum.Enum):
     """Типы социальных сетей."""
 

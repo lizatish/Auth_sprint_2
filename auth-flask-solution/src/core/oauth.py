@@ -12,6 +12,7 @@ def create_oauth(app: Flask):
         oauth.register(name='google')
         oauth.register(name='facebook')
 
+
 def get_oauth_instance() -> OAuth:
     """Возвращает экземпляр oauth."""
     return oauth

@@ -67,7 +67,7 @@ class User(UUIDMixin, db.Model):
     @classmethod
     def get_user_by_universal_login(cls, username: Optional[str] = None, email: Optional[str] = None):
         """Возвращает пользователя по username или email, в зависимости от переданного значения."""
-        return cls.query.filter(or_(cls.username == username, cls.email == email)).first() 
+        return cls.query.filter(or_(cls.username == username, cls.email == email)).first()
 
 
 class SocialAccount(UUIDMixin, db.Model):
