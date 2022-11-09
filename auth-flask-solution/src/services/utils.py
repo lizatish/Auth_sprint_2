@@ -38,3 +38,8 @@ def info_from_yandex(user_data_response):
     """Возвращает email и id пользователя, извлеченные из данных от yandex."""
     user_data = json.loads(user_data_response.content)
     return user_data['default_email'], user_data['id']
+
+
+def info_from_twitter(token):
+    """Возвращает username и id пользователя, извлеченные из twitter токена."""
+    return token['screen_name'], token['user_id'],

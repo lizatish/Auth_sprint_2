@@ -26,6 +26,12 @@ class Settings(BaseSettings):
     YANDEX_AUTHORIZE_URL: str = 'https://oauth.yandex.com/authorize'
     YANDEX_ACCESS_TOKEN_URL: str = 'https://oauth.yandex.com/token'
 
+    TWITTER_CLIENT_ID: str
+    TWITTER_CLIENT_SECRET: str
+    TWITTER_AUTHORIZE_URL: str = 'https://api.twitter.com/oauth/authenticate'
+    TWITTER_REQUEST_TOKEN_URL: str = 'https://api.twitter.com/oauth/request_token'
+    TWITTER_ACCESS_TOKEN_URL: str = 'https://api.twitter.com/oauth/access_token'
+
     PAGE: int = 1
     PER_PAGE: int = 5
 
