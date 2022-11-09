@@ -3,6 +3,8 @@ from core.oauth import get_oauth_instance
 from services.json import JsonService
 from services.auth import AuthService, get_auth_service
 from api.v1.socials import auth_socials_v1
+from services.utils import info_from_google_token
+from models.general import SocialLoginType
 
 oauth = get_oauth_instance()
 
@@ -18,11 +20,12 @@ def login_google():
 @auth_socials_v1.route('/google/callback')
 def auth_google():
     token = oauth.google.authorize_access_token()
-    email = token['userinfo']['email']
-    social_id = token['userinfo']['sub']
-    account = AuthService.get_user_social(social_id=social_id, social_name='google')
+    email, social_id = info_from_google_token(token)
+    account = AuthService.get_user_social(social_id=social_id, social_name=SocialLoginType.GOOGLE.value)
     if not account:
-        account = get_auth_service().create_oauth_user(email=email, social_id=social_id, social_name='google')
+        account = get_auth_service().create_oauth_user(
+            email=email, social_id=social_id, social_name=SocialLoginType.GOOGLE.value
+        )
     access_token, refresh_token = get_auth_service().create_tokens(account.user)
     get_auth_service().add_to_history(account.user)
     return JsonService.return_success_response(access_token=access_token, refresh_token=refresh_token)

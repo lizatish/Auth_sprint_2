@@ -20,3 +20,14 @@ def get_or_create(session, model, **kwargs):
         session.add(instance)
         session.commit()
         return instance
+
+
+def info_from_google_token(token):
+    """Возвращает email и id пользователя, извлеченные из гугл токена."""
+    return token['userinfo']['email'], token['userinfo']['sub']
+
+
+def info_from_facebook(data):
+    """Возвращает email и id пользователя, извлеченные из данных от facebook."""
+    profile = data.json()
+    return profile['email'], profile['id']

@@ -8,3 +8,10 @@ class RoleType(str, enum.Enum):
     PRIVILEGED = 'privileged'
     ADMIN = 'admin'
     TEST = 'test'
+
+class SocialLoginType(str, enum.Enum):
+    """Типы социальных сетей."""
+
+    GOOGLE = 'google'
+    YANDEX = 'yandex'
+    FACEBOOK = 'facebook'
