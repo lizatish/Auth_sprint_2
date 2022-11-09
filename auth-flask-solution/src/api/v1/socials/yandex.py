@@ -25,13 +25,13 @@ def yandex_auth():
     oauth.yandex.authorize_access_token()
     user_data_response = oauth.yandex.get('info')
     email, social_id = info_from_yandex(user_data_response)
-    account = AuthService.get_user_social(social_id=social_id, social_name=SocialLoginType.YANDEX)
+    account = AuthService.get_user_social(social_id=social_id, social_name=SocialLoginType.YANDEX.value)
 
     if not account:
         account = get_auth_service().create_oauth_user(
             email=email,
             social_id=social_id,
-            social_name=SocialLoginType.YANDEX,
+            social_name=SocialLoginType.YANDEX.value,
         )
     access_token, refresh_token = get_auth_service().create_tokens(account.user)
     get_auth_service().add_to_history(account.user)
