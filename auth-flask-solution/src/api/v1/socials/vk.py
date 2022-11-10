@@ -2,11 +2,12 @@ from flask import url_for
 
 from api.v1.socials import auth_socials_v1
 from core.oauth import get_oauth_instance
+from core.settings import VK_API_VERSION
 from models.general import SocialLoginType
 from services.auth import AuthService, get_auth_service
 from services.json import JsonService
 from services.utils import info_from_vk
-from core.settings import VK_API_VERSION
+
 
 oauth = get_oauth_instance()
 
