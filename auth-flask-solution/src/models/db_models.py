@@ -4,7 +4,7 @@ import datetime
 from typing import Optional
 
 from flask import current_app
-from sqlalchemy import ForeignKey, Enum, or_
+from sqlalchemy import ForeignKey, Enum, or_, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import declared_attr
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -41,8 +41,15 @@ class Role(UUIDMixin, db.Model):
 class AccountHistory(UUIDMixin, db.Model):
     """Модель истории входов."""
 
+    __table_args__ = (
+        UniqueConstraint('id', 'created'),
+        {
+            'postgresql_partition_by': 'RANGE (created)',
+        }
+    )
+
     user_id = db.Column(UUID(as_uuid=True), ForeignKey("user.id"))
-    created = db.Column(db.DateTime, default=datetime.datetime.now())
+    created = db.Column(db.DateTime, default=datetime.datetime.now(), primary_key=True)
 
 
 class User(UUIDMixin, db.Model):
