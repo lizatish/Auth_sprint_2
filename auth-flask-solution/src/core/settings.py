@@ -8,6 +8,11 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     """Базовый класс конфигурации."""
 
+    REDIS_LIMIT_URI: str = "redis://localhost:6379"
+    RATELIMIT_STRATEGY: str = "fixed-window"
+    RATELIMIT_DEFAULT: str = "200 per day, 60 per hour"
+    RATELIMIT_STORAGE_URI: str = "redis://"
+
     FACEBOOK_CLIENT_ID: str
     FACEBOOK_CLIENT_SECRET: str
     FACEBOOK_ACCESS_TOKEN_URL: str = 'https://graph.facebook.com/oauth/access_token'
