@@ -2,12 +2,17 @@ from fastapi import APIRouter, Depends, Request
 
 from api.v1.errors import GenreNotFound
 from api.v1.schemas.genres import Genre
+from api.v1.utils import RoleRequired
+from models.common import RoleType
 from services.genres import GenreService, get_genre_service
 
 router = APIRouter()
 
 
-@router.get('/{genre_id}', response_model=Genre, summary='Найти жанр по идентификатору')
+@router.get('/{genre_id}', response_model=Genre, summary='Найти жанр по идентификатору',
+            dependencies=[
+                Depends(RoleRequired(RoleType.STANDARD, RoleType.ADMIN, RoleType.PRIVILEGED, RoleType.ANONYMOUS))],
+            )
 async def genre_details(
         genre_id: str,
         genre_service: GenreService = Depends(get_genre_service),
@@ -25,7 +30,10 @@ async def genre_details(
     return Genre(uuid=genre.id, name=genre.name)
 
 
-@router.get('/', response_model=list[Genre], summary='Get list of all genres')
+@router.get('/', response_model=list[Genre], summary='Get list of all genres',
+            dependencies=[
+                Depends(RoleRequired(RoleType.STANDARD, RoleType.ADMIN, RoleType.PRIVILEGED, RoleType.ANONYMOUS))],
+            )
 async def genres_list(
         request: Request,
         genre_service: GenreService = Depends(get_genre_service),

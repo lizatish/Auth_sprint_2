@@ -1,8 +1,45 @@
 import re
+from http import HTTPStatus
+from http.client import HTTPException
 
-from fastapi import Query, Request
-from models.common import FilterNestedValues, FilterSimpleValues
+from fastapi import Query, Request, HTTPException
 from pydantic import BaseModel
+
+from core.config import get_settings
+from models.common import FilterNestedValues, FilterSimpleValues
+
+conf = get_settings()
+
+
+class RoleRequired:
+    """Класс для проверки ролей и доступов."""
+
+    def __init__(self, *roles: str):
+        """Инициализация требования ролей."""
+        self.roles = roles
+
+    async def __call__(self, request: Request):
+        """Проверка токена доступа и роли пользователя"""
+        token = request.headers.get('Authorization')
+
+        try:
+            response = requests.get(
+                f'http://{conf.AUTH_SERVICE_HOST}:{conf.AUTH_SERVICE_PORT}/auth/v1/users/protected',
+                headers={"Authorization": token}
+            )
+            response_body = response.json()
+            if response.status_code == HTTPStatus.OK:
+                role = response_body['msg']
+            else:
+                role = 'ANONYMOUS'
+        except:
+            role = 'ANONYMOUS'
+
+        if role not in self.roles:
+            raise HTTPException(
+                status_code=HTTPStatus.FORBIDDEN,
+                detail='You don\'t have permissions for this action',
+            )
 
 
 class Paginator(BaseModel):

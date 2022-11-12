@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends, Request
 
 from api.v1.errors import PersonNotFound
 from api.v1.schemas.persons import FilmByPerson, Person
-from api.v1.utils import Paginator
+from api.v1.utils import Paginator, RoleRequired
+from models.common import RoleType
 from services.films import FilmService, get_film_service
 from services.persons import PersonService, get_person_service
 
@@ -13,6 +14,8 @@ router = APIRouter()
     '/{person_id}/film',
     response_model=list[FilmByPerson],
     summary='Найти фильмы по идентификатору участника',
+    dependencies=[Depends(RoleRequired(RoleType.STANDARD, RoleType.ADMIN, RoleType.PRIVILEGED, RoleType.ANONYMOUS))],
+
 )
 async def films_by_person(
         person_id: str,
@@ -38,7 +41,10 @@ async def films_by_person(
     ]
 
 
-@router.get('/search', response_model=list[Person], summary='Найти участников фильма')
+@router.get('/search', response_model=list[Person], summary='Найти участников фильма',
+            dependencies=[
+                Depends(RoleRequired(RoleType.STANDARD, RoleType.ADMIN, RoleType.PRIVILEGED, RoleType.ANONYMOUS))],
+            )
 async def search_persons(
         request: Request,
         query: str = None,
@@ -73,7 +79,10 @@ async def search_persons(
     ]
 
 
-@router.get('/{person_id}', response_model=Person, summary='Найти участника фильма по идентификатору')
+@router.get('/{person_id}', response_model=Person, summary='Найти участника фильма по идентификатору',
+            dependencies=[
+                Depends(RoleRequired(RoleType.STANDARD, RoleType.ADMIN, RoleType.PRIVILEGED, RoleType.ANONYMOUS))],
+            )
 async def person_details(
         person_id: str,
         person_service: PersonService = Depends(get_person_service),
