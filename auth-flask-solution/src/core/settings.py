@@ -109,4 +109,4 @@ class DevSettings(Settings):
 @lru_cache()
 def get_settings() -> Settings:
     """Возвращает настройки тестов."""
-    return ProdSettings()
+    return DevSettings()

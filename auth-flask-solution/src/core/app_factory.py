@@ -37,10 +37,10 @@ def create_app(config_filename: object) -> Flask:
     app.register_blueprint(roles_v1, url_prefix='/auth/v1/roles/')
     app.register_blueprint(auth_socials_v1, url_prefix='/auth/v1/oauth/')
 
-    @app.before_request
-    def before_request():
-        request_id = request.headers.get('X-Request-Id')
-        if not request_id:
-            raise RuntimeError('Request id is required')
+    # @app.before_request
+    # def before_request():
+    #     request_id = request.headers.get('X-Request-Id')
+    #     if not request_id:
+    #         raise RuntimeError('Request id is required')
 
     return app
