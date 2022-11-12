@@ -4,7 +4,7 @@ from api.v1.errors import GenreNotFound
 from api.v1.schemas.genres import Genre
 from services.genres import GenreService, get_genre_service
 
-router = APIRouter()
+router = APIRouter(prefix='/api/v1/genres')
 
 
 @router.get('/{genre_id}', response_model=Genre, summary='Найти жанр по идентификатору')

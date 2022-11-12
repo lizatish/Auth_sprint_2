@@ -5,10 +5,12 @@ import uvicorn as uvicorn
 from elasticsearch import AsyncElasticsearch
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
+from starlette.middleware.base import BaseHTTPMiddleware
 
 from api.v1 import films, genres, persons
 from core.config import get_settings
 from core.logger import LOGGING
+from core.middleware import MyMiddleware
 from db import elastic
 from db import redis
 
@@ -20,7 +22,8 @@ app = FastAPI(
     openapi_url='/api/openapi.json',
     default_response_class=ORJSONResponse,
 )
-
+my_middleware = MyMiddleware(some_attribute="some_attribute_here_if_needed")
+app.add_middleware(BaseHTTPMiddleware, dispatch=my_middleware)
 
 @app.on_event('startup')
 async def startup():
@@ -38,9 +41,11 @@ async def shutdown():
     await elastic.es.close()
 
 
-app.include_router(films.router, prefix='/api/v1/films', tags=['films'])
-app.include_router(genres.router, prefix='/api/v1/genres', tags=['genres'])
-app.include_router(persons.router, prefix='/api/v1/persons', tags=['persons'])
+app.include_router(films.router, tags=['films'])
+app.include_router(genres.router, tags=['genres'])
+app.include_router(persons.router, tags=['persons'])
+
+
 
 if __name__ == '__main__':
     uvicorn.run(

@@ -6,7 +6,7 @@ from api.v1.utils import Paginator
 from services.films import FilmService, get_film_service
 from services.persons import PersonService, get_person_service
 
-router = APIRouter()
+router = APIRouter(prefix='/api/v1/persons')
 
 
 @router.get(

@@ -7,7 +7,7 @@ from api.v1.schemas.films import ShortFilm, Film, Person, Genre
 from api.v1.utils import Paginator, get_filter
 from services.films import FilmService, get_film_service
 
-router = APIRouter()
+router = APIRouter(prefix='/api/v1/films')
 
 
 @router.get(
