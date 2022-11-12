@@ -27,6 +27,9 @@ class Settings(BaseSettings):
     GENRE_CACHE_EXPIRE_IN_SECONDS: int = 60 * 5
     PERSON_CACHE_EXPIRE_IN_SECONDS: int = 60 * 5
 
+    AUTH_SERVICE_PROTECTED = 'http://127.0.0.1:4555/auth/v1/users/protected'
+    DEFAULT_USER_ROLE = 'ANONYMOUS'
+
     class Config:
         """Дополнительные базовые настройки."""
 

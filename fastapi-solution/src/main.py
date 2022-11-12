@@ -22,7 +22,7 @@ app = FastAPI(
     openapi_url='/api/openapi.json',
     default_response_class=ORJSONResponse,
 )
-my_middleware = MyMiddleware(some_attribute="some_attribute_here_if_needed")
+my_middleware = MyMiddleware()
 app.add_middleware(BaseHTTPMiddleware, dispatch=my_middleware)
 
 @app.on_event('startup')
