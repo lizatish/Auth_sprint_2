@@ -4,7 +4,8 @@ from fastapi import APIRouter, Depends, Request
 
 from api.v1.errors import FilmNotFound
 from api.v1.schemas.films import ShortFilm, Film, Person, Genre
-from api.v1.utils import Paginator, get_filter
+from api.v1.utils import Paginator, get_filter, RoleRequired
+from models.common import RoleType
 from services.films import FilmService, get_film_service
 
 router = APIRouter()
@@ -15,6 +16,8 @@ router = APIRouter()
     response_model=list[ShortFilm],
     summary='Найти фильмы в порядке убывания/возрастания рейтинга,'
             ' удовлетворяющих фильтру',
+    dependencies=[Depends(RoleRequired(RoleType.STANDARD, RoleType.ADMIN, RoleType.PRIVILEGED, RoleType.ANONYMOUS))],
+
 )
 async def films_scope(
         request: Request,
@@ -43,7 +46,10 @@ async def films_scope(
     ) for item in films]
 
 
-@router.get('/search', response_model=list[ShortFilm], summary='Найти список фильмов по совпадению')
+@router.get('/search', response_model=list[ShortFilm], summary='Найти список фильмов по совпадению',
+            dependencies=[
+                Depends(RoleRequired(RoleType.ADMIN, RoleType.PRIVILEGED))],
+            )
 async def film_search(
         request: Request,
         query: str,
@@ -75,7 +81,10 @@ async def film_search(
     ) for item in films]
 
 
-@router.get('/{film_id}', response_model=Film, summary='Поиск фильма по идентификатору')
+@router.get('/{film_id}', response_model=Film, summary='Поиск фильма по идентификатору',
+            dependencies=[
+                Depends(RoleRequired(RoleType.STANDARD, RoleType.ADMIN, RoleType.PRIVILEGED, RoleType.ANONYMOUS))],
+            )
 async def film_details(
         film_id: str, film_service: FilmService = Depends(get_film_service),
 ) -> Film:

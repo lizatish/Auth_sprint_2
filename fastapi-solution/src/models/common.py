@@ -47,3 +47,12 @@ class FilterNestedValues(BaseFilter):
     actors = 'actors'
     writers = 'writers'
     directors = 'directors'
+
+
+class RoleType(str, enum.Enum):
+    """Тип роли пользователя."""
+
+    STANDARD = 'STANDARD'
+    PRIVILEGED = 'PRIVILEGED'
+    ADMIN = 'ADMIN'
+    ANONYMOUS = 'ANONYMOUS'

@@ -19,6 +19,8 @@ services:
     volumes:
       - auth_redisdata:/data
     restart: always
+    ports:
+      - 6379:6379
 
   auth_postgres:
     container_name: auth_postgres
@@ -29,6 +31,8 @@ services:
       POSTGRES_DB: ${AUTH_POSTGRES_DB_NAME}
     volumes:
       - auth_pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
 
 
   ### Main service
@@ -52,6 +56,8 @@ services:
       discovery.type: single-node
     volumes:
       - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
 
   main_redis:
     container_name: main_redis

@@ -1,13 +1,12 @@
-from flasgger import Swagger
-from flask import Flask, request
-from opentelemetry.instrumentation.flask import FlaskInstrumentor
-
 from core.cache import create_cache
 from core.jwt import create_jwt
 from core.limiter import create_limiter
 from core.oauth import create_oauth
 from core.tracer import configure_tracer
 from db.db_factory import create_db
+from flasgger import Swagger
+from flask import Flask
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
 
 
 def create_app(config_filename: object) -> Flask:

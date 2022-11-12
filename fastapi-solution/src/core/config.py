@@ -7,6 +7,9 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     """Настройки приложения."""
 
+    AUTH_SERVICE_HOST: str = 'auth_service'
+    AUTH_SERVICE_PORT: int = 4555
+
     # Название проекта. Используется в Swagger-документации
     PROJECT_NAME: str = 'movies'
 
