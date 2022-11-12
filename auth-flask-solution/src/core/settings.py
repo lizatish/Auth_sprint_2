@@ -8,7 +8,6 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     """Базовый класс конфигурации."""
 
-    REDIS_LIMIT_URI: str = "redis://localhost:6379"
     RATELIMIT_STRATEGY: str = "fixed-window"
     RATELIMIT_DEFAULT: str = "200 per day, 60 per hour"
     RATELIMIT_STORAGE_URI: str = "redis://"
@@ -68,6 +67,7 @@ class Settings(BaseSettings):
 class ProdSettings(Settings):
     """Настройки для развертки приложения."""
 
+    REDIS_LIMIT_URI: str = "redis://auth_redis:6379"
     FLASK_ENV: str = 'production'
     DEBUG: bool = False
     TESTING: bool = False
@@ -88,6 +88,7 @@ class ProdSettings(Settings):
 class DevSettings(Settings):
     """Настройки для разработки приложения;"""
 
+    REDIS_LIMIT_URI: str = "redis://localhost:6379"
     FLASK_ENV: str = 'development'
     DEBUG: bool = True
     TESTING: bool = True
