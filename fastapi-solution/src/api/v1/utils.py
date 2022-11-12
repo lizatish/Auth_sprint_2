@@ -1,7 +1,7 @@
 import re
 from http import HTTPStatus
-from http.client import HTTPException
 
+import requests
 from fastapi import Query, Request, HTTPException
 from pydantic import BaseModel
 
@@ -32,7 +32,7 @@ class RoleRequired:
                 role = response_body['msg']
             else:
                 role = 'ANONYMOUS'
-        except:
+        except Exception:
             role = 'ANONYMOUS'
 
         if role not in self.roles:
