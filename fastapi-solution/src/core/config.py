@@ -11,11 +11,11 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = 'movies'
 
     # Настройки Redis
-    CACHE_HOST: str = 'redis'
+    CACHE_HOST: str = 'main_redis'
     CACHE_PORT: int = 6379
 
     # Настройки Elasticsearch
-    ELASTIC_HOST: str = 'elastic'
+    ELASTIC_HOST: str = 'main_elastic'
     ELASTIC_PORT: int = 9200
     ELASTIC_DEFAULT_OUTPUT_RECORDS_SIZE: int = 10000
 

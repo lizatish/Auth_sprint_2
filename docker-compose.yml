@@ -68,7 +68,7 @@ services:
       POSTGRES_PASSWORD: ${MAIN_POSTGRES_DB_PASSWORD}
       POSTGRES_DB: ${MAIN_POSTGRES_DB_NAME}
     volumes:
-      - main_pgdata:/var/lib/postgresql/data
+      - $HOME/postgresql/data:/var/lib/postgresql/data
 
   ### ETL
   etl_genres:
@@ -122,6 +122,13 @@ services:
     depends_on:
       - auth_service
       - main_api_service
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "6831:6831/udp"
+      - "16686:16686"
+
 volumes:
   esdata:
   auth_pgdata:
