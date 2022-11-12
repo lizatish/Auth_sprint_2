@@ -4,6 +4,7 @@ from flask import Flask
 from core.cache import create_cache
 from core.jwt import create_jwt
 from core.oauth import create_oauth
+from core.limiter import create_limiter
 from db.db_factory import create_db
 
 
@@ -18,6 +19,7 @@ def create_app(config_filename: object) -> Flask:
     create_cache(app)
     create_jwt(app)
     create_oauth(app)
+    create_limiter(app)
     Swagger(app)
 
     # Регистрация отдельных компонентов (API)

@@ -163,6 +163,17 @@ optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
 
 [[package]]
+name = "commonmark"
+version = "0.9.1"
+description = "Python parser for the CommonMark Markdown spec"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+test = ["flake8 (==3.7.8)", "hypothesis (==3.55.3)"]
+
+[[package]]
 name = "cryptography"
 version = "38.0.3"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
@@ -321,6 +332,28 @@ Werkzeug = ">=0.14"
 
 [package.extras]
 asymmetric-crypto = ["cryptography (>=3.3.1)"]
+
+[[package]]
+name = "flask-limiter"
+version = "2.7.0"
+description = "Rate limiting for flask applications"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+Flask = ">=2"
+limits = [
+    {version = ">=2.3"},
+    {version = "*", extras = ["redis"], optional = true, markers = "extra == \"redis\""},
+]
+rich = ">=12,<13"
+typing-extensions = ">=4"
+
+[package.extras]
+memcached = ["limits[memcached]"]
+mongodb = ["limits[mongodb]"]
+redis = ["limits[redis]"]
 
 [[package]]
 name = "flask-login"
@@ -623,6 +656,31 @@ format = ["fqdn", "idna", "isoduration", "jsonpointer (>1.13)", "rfc3339-validat
 format-nongpl = ["fqdn", "idna", "isoduration", "jsonpointer (>1.13)", "rfc3339-validator", "rfc3986-validator (>0.1.0)", "uri-template", "webcolors (>=1.11)"]
 
 [[package]]
+name = "limits"
+version = "2.7.1"
+description = "Rate limiting utilities"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+deprecated = ">=1.2"
+packaging = ">=21,<22"
+redis = {version = ">3,<5.0.0", optional = true, markers = "extra == \"redis\""}
+setuptools = "*"
+typing-extensions = "*"
+
+[package.extras]
+all = ["coredis (>=3.4.0,<5)", "emcache (>=0.6.1)", "motor (>=2.5,<4)", "pymemcache (>3,<5.0.0)", "pymongo (>3,<5)", "redis (>3,<5.0.0)", "redis (>=4.2.0)"]
+async-memcached = ["emcache (>=0.6.1)"]
+async-mongodb = ["motor (>=2.5,<4)"]
+async-redis = ["coredis (>=3.4.0,<5)"]
+memcached = ["pymemcache (>3,<5.0.0)"]
+mongodb = ["pymongo (>3,<5)"]
+redis = ["redis (>3,<5.0.0)"]
+rediscluster = ["redis (>=4.2.0)"]
+
+[[package]]
 name = "mako"
 version = "1.2.3"
 description = "A super-fast templating language that borrows the best ideas from the existing templating languages."
@@ -805,6 +863,17 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "pygments"
+version = "2.13.0"
+description = "Pygments is a syntax highlighting package written in Python."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.extras]
+plugins = ["importlib-metadata"]
+
+[[package]]
 name = "pyjwt"
 version = "2.6.0"
 description = "JSON Web Token implementation in Python"
@@ -961,6 +1030,21 @@ idna = {version = "*", optional = true, markers = "extra == \"idna2008\""}
 
 [package.extras]
 idna2008 = ["idna"]
+
+[[package]]
+name = "rich"
+version = "12.6.0"
+description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
+category = "main"
+optional = false
+python-versions = ">=3.6.3,<4.0.0"
+
+[package.dependencies]
+commonmark = ">=0.9.0,<0.10.0"
+pygments = ">=2.6.0,<3.0.0"
+
+[package.extras]
+jupyter = ["ipywidgets (>=7.5.1,<8.0.0)"]
 
 [[package]]
 name = "rsa"
@@ -1156,7 +1240,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "232cf8514ee11e41f47cfddf20ae1293616a8c789b0e16510531cd43b0dca791"
+content-hash = "3c65b02474cbbfbb97f049f60111ea7b2a6bd9d51f26b347daebb06ae48f92a9"
 
 [metadata.files]
 aioredis = [
@@ -1281,6 +1365,10 @@ colorama = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
+commonmark = [
+    {file = "commonmark-0.9.1-py2.py3-none-any.whl", hash = "sha256:da2f38c92590f83de410ba1a3cbceafbc74fee9def35f9251ba9a971d6d66fd9"},
+    {file = "commonmark-0.9.1.tar.gz", hash = "sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60"},
+]
 cryptography = [
     {file = "cryptography-38.0.3-cp36-abi3-macosx_10_10_universal2.whl", hash = "sha256:984fe150f350a3c91e84de405fe49e688aa6092b3525f407a18b9646f6612320"},
     {file = "cryptography-38.0.3-cp36-abi3-macosx_10_10_x86_64.whl", hash = "sha256:ed7b00096790213e09eb11c97cc6e2b757f15f3d2f85833cd2d3ec3fe37c1722"},
@@ -1348,6 +1436,10 @@ flask-caching = [
 flask-jwt-extended = [
     {file = "Flask-JWT-Extended-4.4.4.tar.gz", hash = "sha256:62b521d75494c290a646ae8acc77123721e4364790f1e64af0038d823961fbf0"},
     {file = "Flask_JWT_Extended-4.4.4-py2.py3-none-any.whl", hash = "sha256:a85eebfa17c339a7260c4643475af444784ba6de5588adda67406f0a75599553"},
+]
+flask-limiter = [
+    {file = "Flask-Limiter-2.7.0.tar.gz", hash = "sha256:a83164ab3fd264c7e565eeebd1f825cfd014ef4972cc742dbcf0d221e3c38092"},
+    {file = "Flask_Limiter-2.7.0-py3-none-any.whl", hash = "sha256:805989ef98549385148916f92cc5d73b70c6f8fabda1cdff6e8678fab8d64d24"},
 ]
 flask-login = [
     {file = "Flask-Login-0.6.2.tar.gz", hash = "sha256:c0a7baa9fdc448cdd3dd6f0939df72eec5177b2f7abe6cb82fc934d29caac9c3"},
@@ -1530,6 +1622,10 @@ jinja2 = [
 jsonschema = [
     {file = "jsonschema-4.16.0-py3-none-any.whl", hash = "sha256:9e74b8f9738d6a946d70705dc692b74b5429cd0960d58e79ffecfc43b2221eb9"},
     {file = "jsonschema-4.16.0.tar.gz", hash = "sha256:165059f076eff6971bae5b742fc029a7b4ef3f9bcf04c14e4776a7605de14b23"},
+]
+limits = [
+    {file = "limits-2.7.1-py3-none-any.whl", hash = "sha256:38fb215ce5185f23c02548481272cabbea92a47b19ac6d4c85b0117085172002"},
+    {file = "limits-2.7.1.tar.gz", hash = "sha256:cdb58ef59e90d582589a0f5a8dd36ee00995342679109d64df92b060507d8f03"},
 ]
 mako = [
     {file = "Mako-1.2.3-py3-none-any.whl", hash = "sha256:c413a086e38cd885088d5e165305ee8eed04e8b3f8f62df343480da0a385735f"},
@@ -1727,6 +1823,10 @@ pyflakes = [
     {file = "pyflakes-2.5.0-py2.py3-none-any.whl", hash = "sha256:4579f67d887f804e67edb544428f264b7b24f435b263c4614f384135cea553d2"},
     {file = "pyflakes-2.5.0.tar.gz", hash = "sha256:491feb020dca48ccc562a8c0cbe8df07ee13078df59813b83959cbdada312ea3"},
 ]
+pygments = [
+    {file = "Pygments-2.13.0-py3-none-any.whl", hash = "sha256:f643f331ab57ba3c9d89212ee4a2dabc6e94f117cf4eefde99a0574720d14c42"},
+    {file = "Pygments-2.13.0.tar.gz", hash = "sha256:56a8508ae95f98e2b9bdf93a6be5ae3f7d8af858b43e02c5a2ff083726be40c1"},
+]
 pyjwt = [
     {file = "PyJWT-2.6.0-py3-none-any.whl", hash = "sha256:d83c3d892a77bbb74d3e1a2cfa90afaadb60945205d1095d9221f04466f64c14"},
     {file = "PyJWT-2.6.0.tar.gz", hash = "sha256:69285c7e31fc44f68a1feb309e948e0df53259d579295e6cfe2b1792329f05fd"},
@@ -1831,6 +1931,10 @@ requests-oauthlib = [
 rfc3986 = [
     {file = "rfc3986-1.5.0-py2.py3-none-any.whl", hash = "sha256:a86d6e1f5b1dc238b218b012df0aa79409667bb209e58da56d0b94704e712a97"},
     {file = "rfc3986-1.5.0.tar.gz", hash = "sha256:270aaf10d87d0d4e095063c65bf3ddbc6ee3d0b226328ce21e036f946e421835"},
+]
+rich = [
+    {file = "rich-12.6.0-py3-none-any.whl", hash = "sha256:a4eb26484f2c82589bd9a17c73d32a010b1e29d89f1604cd9bf3a2097b81bb5e"},
+    {file = "rich-12.6.0.tar.gz", hash = "sha256:ba3a3775974105c221d31141f2c116f4fd65c5ceb0698657a11e9f295ec93fd0"},
 ]
 rsa = [
     {file = "rsa-4.9-py3-none-any.whl", hash = "sha256:90260d9058e514786967344d0ef75fa8727eed8a7d2e43ce9f4bcf1b536174f7"},
