@@ -55,7 +55,7 @@ class TestSettingsDocker(TestSettings):
     class Config:
         """Дополнительные базовые настройки."""
 
-        env_file = '.env'
+        env_file = '.env.local'
         env_file_encoding = 'utf-8'
 
 
@@ -74,7 +74,7 @@ class TestSettingsLocal(TestSettings):
     class Config:
         """Дополнительные базовые настройки."""
 
-        env_file = '../.env.local'
+        env_file = '../.env.local.local'
         env_file_encoding = 'utf-8'
 
 
