@@ -1,16 +1,21 @@
+from flask import current_app
 from opentelemetry import trace
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter
-from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace import TracerProvider, Resource
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
 
 
 def configure_tracer() -> None:
-    trace.set_tracer_provider(TracerProvider())
+    resource = Resource(attributes={
+        "service.name": current_app.config['AUTH_SERVICE_NAME']
+    })
+    provider = TracerProvider(resource=resource)
+    trace.set_tracer_provider(provider)
     trace.get_tracer_provider().add_span_processor(
         BatchSpanProcessor(
             JaegerExporter(
-                agent_host_name='jaeger',
-                agent_port=6831,
+                agent_host_name=current_app.config['JAEGER_HOSTNAME'],
+                agent_port=current_app.config['JAEGER_PORT'],
             )
         )
     )
