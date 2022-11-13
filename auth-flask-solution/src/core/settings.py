@@ -40,15 +40,6 @@ class Settings(BaseSettings):
     VK_ACCESS_TOKEN_URL: str = 'https://oauth.vk.com/access_token?client_id=51475347&client_secret=5jEFYr5yt6qF39BIZ7zz'
     VK_CLIENT_KWARGS: dict = {'scope': 'email'}
 
-    MAIL_CLIENT_ID: str
-    MAIL_CLIENT_SECRET: str
-    # MAIL_API_BASE_URL: str = 'https://oauth.mail.ru/userinfo'
-    MAIL_API_BASE_URL:str = 'http://www.appsmail.ru/platform/api?method=users.getInfo&secure=1&client_id=786990' \
-                            '&client_secret=97719d42ec5a0a723eb9fceeb475ea69 '
-    MAIL_AUTHORIZE_URL: str = 'https://connect.mail.ru/oauth/authorize'
-    MAIL_ACCESS_TOKEN_URL: str = 'https://connect.mail.ru/oauth/token'
-    MAIL_CLIENT_KWARGS: dict = {'scope': 'userinfo'}
-
     PAGE: int = 1
     PER_PAGE: int = 5
 
