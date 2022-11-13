@@ -21,7 +21,7 @@ socials_auth_mapping = {
 
 
 @auth_socials_v1.route('/<social_name>/login')
-def socials_login(social_name: SocialLoginType):
+def socials_login(social_name: str):
     """Аутентификация через сторонние сервисы."""
     try:
         SocialLoginType(social_name)
@@ -37,7 +37,7 @@ def socials_login(social_name: SocialLoginType):
 
 
 @auth_socials_v1.route('/<social_name>/callback')
-def socials_auth(social_name: SocialLoginType):
+def socials_auth(social_name: str):
     """Метод обратного вызова для аутентификации через сторонние сервисы."""
     try:
         prepared = SocialLoginType(social_name)
