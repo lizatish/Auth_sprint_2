@@ -1,5 +1,4 @@
 from flask import url_for
-
 from api.v1.socials import auth_socials_v1
 from core.oauth import get_oauth_instance
 from models.general import SocialLoginType
