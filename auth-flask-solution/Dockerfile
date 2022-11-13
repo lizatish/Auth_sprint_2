@@ -11,8 +11,8 @@ COPY . /opt/app/
 ENV PYTHONPATH "${PYTHONPATH}:/opt/app/src/"
 
 # async run
-CMD ["uvicorn", "app.src.main:app", "--host", "0.0.0.0", "--port", "5555"]
+CMD ["uvicorn", "app.src.main:app", "--host", "0.0.0.0", "--port", "4555"]
 
 # sync run
 #ENV FLASK_APP=main_sync.py
-#CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port", "5555"]
+#CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port", "4555"]

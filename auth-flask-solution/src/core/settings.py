@@ -7,6 +7,11 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     """Базовый класс конфигурации."""
+    AUTH_SERVICE_NAME: str = 'auth-service'
+    AUTH_PORT: int = 4555
+
+    JAEGER_HOSTNAME: str = 'jaeger'
+    JAEGER_PORT: int = 6831
 
     RATELIMIT_STRATEGY: str = "fixed-window"
     RATELIMIT_DEFAULT: str = "200 per day, 60 per hour"
@@ -39,8 +44,6 @@ class Settings(BaseSettings):
     PAGE: int = 1
     PER_PAGE: int = 5
 
-    AUTH_PORT: int = 5555
-
     # Базовые настройки приложения
     SECRET_KEY: str
 
@@ -71,6 +74,7 @@ class ProdSettings(Settings):
     FLASK_ENV: str = 'production'
     DEBUG: bool = False
     TESTING: bool = False
+    ENABLE_TRACER: bool = True
 
     # Настройки Redis
     CACHE_HOST: str = 'auth_redis'
@@ -92,6 +96,7 @@ class DevSettings(Settings):
     FLASK_ENV: str = 'development'
     DEBUG: bool = True
     TESTING: bool = True
+    ENABLE_TRACER: bool = False
 
     # Настройки Redis
     CACHE_HOST: str = 'localhost'
