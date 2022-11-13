@@ -1,4 +1,5 @@
 from http import HTTPStatus
+
 import orjson
 from flask import jsonify, Request
 
@@ -18,6 +19,11 @@ class JsonService:
     def return_uuid_fail():
         """Возвращает ответ пользователю, если id неверный."""
         return {"msg": "Bad format uuid"}, HTTPStatus.UNPROCESSABLE_ENTITY
+
+    @staticmethod
+    def return_social_name_fail(social_type: str):
+        """Возвращает ответ пользователю, если id неверный."""
+        return {"msg": f"Unsupported social name: {social_type}"}, HTTPStatus.UNPROCESSABLE_ENTITY
 
     @staticmethod
     def return_password_verification_failed():
