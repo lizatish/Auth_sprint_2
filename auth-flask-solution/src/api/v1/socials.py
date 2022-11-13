@@ -21,7 +21,7 @@ socials_auth_mapping = {
 
 
 @auth_socials_v1.route('/<social_name>/login')
-def socials_login(social_name: str):
+def socials_login(social_name: SocialLoginType):
     """Аутентификация через сторонние сервисы."""
     client = oauth.create_client(social_name)
     redirect_uri = url_for('auth_socials_v1.socials_auth', social_name=social_name, _external=True)
@@ -31,7 +31,7 @@ def socials_login(social_name: str):
 
 
 @auth_socials_v1.route('/<social_name>/callback')
-def socials_auth(social_name: str):
+def socials_auth(social_name: SocialLoginType):
     """Метод обратного вызова для аутентификации через сторонние сервисы."""
     prepared = SocialLoginType(social_name)
     user_data_kwargs = socials_auth_mapping[prepared]()
