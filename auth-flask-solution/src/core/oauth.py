@@ -14,6 +14,7 @@ def create_oauth(app: Flask):
         oauth.register(name='yandex')
         oauth.register(name='twitter')
         oauth.register(name='vk')
+        oauth.register(name='mail')
 
 
 def get_oauth_instance() -> OAuth:

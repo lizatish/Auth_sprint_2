@@ -35,9 +35,16 @@ class Settings(BaseSettings):
     VK_CLIENT_ID: str
     VK_CLIENT_SECRET: str
     VK_API_VERSION: str = '5.131'
-    VK_API_BASE_URL: str = 'https://api.vk.com/method'
+    VK_API_BASE_URL: str = 'https://api.vk.com/method/'
     VK_AUTHORIZE_URL: str = 'https://oauth.vk.com/authorize'
-    VK_ACCESS_TOKEN_URL: str = 'https://oauth.vk.com/access_token'
+    VK_ACCESS_TOKEN_URL: str = 'https://oauth.vk.com/access_token?client_id=51475347&client_secret=5jEFYr5yt6qF39BIZ7zz'
+    VK_CLIENT_KWARGS: dict = {'scope': 'email'}
+
+    MAIL_CLIENT_ID: str
+    MAIL_CLIENT_SECRET: str
+    MAIL_API_BASE_URL: str = 'https://connect.mail.ru/oauth/'
+    MAIL_AUTHORIZE_URL: str = 'https://connect.mail.ru/oauth/authorize'
+    MAIL_ACCESS_TOKEN_URL: str = 'https://connect.mail.ru/oauth/token'
 
     PAGE: int = 1
     PER_PAGE: int = 5
@@ -83,7 +90,7 @@ class ProdSettings(Settings):
     class Config:
         """Дополнительные базовые настройки."""
 
-        env_file = '.env'
+        env_file = '.env.local'
         env_file_encoding = 'utf-8'
 
 

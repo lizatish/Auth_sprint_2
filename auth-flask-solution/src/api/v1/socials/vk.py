@@ -2,7 +2,7 @@ from flask import url_for
 
 from api.v1.socials import auth_socials_v1
 from core.oauth import get_oauth_instance
-from core.settings import VK_API_VERSION
+from core.settings import Settings
 from models.general import SocialLoginType
 from services.auth import AuthService, get_auth_service
 from services.json import JsonService
@@ -15,6 +15,7 @@ oauth = get_oauth_instance()
 @auth_socials_v1.route('/vk/login')
 def vk_login():
     """Аутентификация пользователя через vkontakte."""
+    # redirect_uri = 'https://oauth.vk.com/blank.html'
     redirect_uri = url_for('auth_socials_v1.vk_auth', _external=True)
     uri = oauth.vk.create_authorization_url(redirect_uri)
     oauth.vk.save_authorize_data(redirect_uri=redirect_uri, **uri)
@@ -24,14 +25,8 @@ def vk_login():
 @auth_socials_v1.route('/vk/callback')
 def vk_auth():
     """Функция обратного вызова для аутентификации пользователя через vkontakte."""
-    oauth.vk.authorize_access_token()
-    # https: // api.vk.com / method / users.get?user_id = 210700286 & v = 5.131
-    user_data_response = oauth.vk.get(
-        scope='email',
-        response_type='code',
-        v=VK_API_VERSION,
-        )
-    email, social_id = info_from_vk(user_data_response)
+    token = oauth.vk.authorize_access_token()
+    email, social_id = info_from_vk(token)
     account = AuthService.get_user_social(social_id=social_id, social_name=SocialLoginType.VK.value)
 
     if not account:
