@@ -2,7 +2,6 @@ from flask import url_for
 
 from api.v1.socials import auth_socials_v1
 from core.oauth import get_oauth_instance
-from core.settings import Settings
 from models.general import SocialLoginType
 from services.auth import AuthService, get_auth_service
 from services.json import JsonService
