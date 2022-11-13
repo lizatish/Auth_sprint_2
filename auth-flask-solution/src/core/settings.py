@@ -42,9 +42,10 @@ class Settings(BaseSettings):
 
     MAIL_CLIENT_ID: str
     MAIL_CLIENT_SECRET: str
-    MAIL_API_BASE_URL: str = 'https://connect.mail.ru/oauth/'
+    MAIL_API_BASE_URL: str = 'https://oauth.mail.ru/userinfo'
     MAIL_AUTHORIZE_URL: str = 'https://connect.mail.ru/oauth/authorize'
     MAIL_ACCESS_TOKEN_URL: str = 'https://connect.mail.ru/oauth/token'
+
 
     PAGE: int = 1
     PER_PAGE: int = 5
