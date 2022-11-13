@@ -8,7 +8,7 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     """Базовый класс конфигурации."""
     AUTH_SERVICE_NAME: str = 'auth-service'
-    AUTH_PORT: int = 5555
+    AUTH_PORT: int = 4555
 
     JAEGER_HOSTNAME: str = 'jaeger'
     JAEGER_PORT: int = 6831
