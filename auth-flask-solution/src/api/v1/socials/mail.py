@@ -20,7 +20,9 @@ def login_mail():
 @auth_socials_v1.route('/mail/callback')
 def auth_mail():
     token = oauth.mail.authorize_access_token()
-    response = oauth.mail.get('?access_token='+token['access_token'])
+    # response = oauth.mail.get('?access_token='+token['access_token'])
+    sign = hex_md5('app_id='=+'method=users.getInfosecure=1session_key={access_token}{secret_key}')
+    response = oauth.mail.get('')
     email, social_id = info_from_mail(response)
     account = AuthService.get_user_social(social_id=social_id, social_name=SocialLoginType.MAIL.value)
     if not account:
