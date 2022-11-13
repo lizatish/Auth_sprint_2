@@ -7,7 +7,6 @@ from services.auth import AuthService, get_auth_service
 from services.json import JsonService
 from services.utils import info_from_vk
 
-
 oauth = get_oauth_instance()
 
 
