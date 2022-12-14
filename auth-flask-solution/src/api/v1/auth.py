@@ -1,10 +1,12 @@
+import uuid
+
 from flask import Blueprint, request
 from flask_jwt_extended import get_jwt, current_user, jwt_required
 from flask_pydantic import validate
+from pydantic import BaseModel
 
 from api.v1.schemas import RefreshAccessTokensResponse, UserData, PasswordChange, UserRegistration
 from api.v1.schemas import UserLoginScheme, AccountHistory, Pagination
-from core.cache import cache
 from core.jwt import get_jwt_instance
 from services.auth import AuthService, get_auth_service
 from services.json import JsonService
@@ -423,6 +425,11 @@ def account_history(query: Pagination):
     return JsonService.pagination_return(account_history_data, prepared_output)
 
 
+class UserProtectedData(BaseModel):
+    role: str
+    user_id: uuid.UUID
+
+
 @auth_v1.route("/protected", methods=["GET"])
 @jwt_required()
 def protected():
@@ -449,11 +456,14 @@ def protected():
                 type: string
                 example: [ADMIN, STANDARD, PRIVILEGED]
     """
-    return JsonService.return_success_response(msg=current_user.role.label.name)
+    return JsonService.return_success_response(
+        **UserProtectedData(
+            role=current_user.role.label.name,
+            user_id=current_user.id,
+        ).dict())
 
 
 @jwt.user_lookup_loader
-@cache.memoize(timeout=60)
 def user_lookup_callback(_jwt_header, jwt_data):
     """
     Делает переменную current_user доступной в каждой конечной точке с помощью @jwt_required

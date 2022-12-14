@@ -74,7 +74,7 @@ class ProdSettings(Settings):
     FLASK_ENV: str = 'production'
     DEBUG: bool = False
     TESTING: bool = False
-    ENABLE_TRACER: bool = True
+    ENABLE_TRACER: bool = False
 
     # Настройки Redis
     CACHE_HOST: str = 'auth_redis'
