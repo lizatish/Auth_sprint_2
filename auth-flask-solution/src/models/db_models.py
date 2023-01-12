@@ -59,6 +59,7 @@ class User(UUIDMixin, db.Model):
     email = db.Column(db.String, unique=True, nullable=True)
     role_id = db.Column(UUID(as_uuid=True), ForeignKey("role.id"))
     password = db.Column(db.String(400), nullable=False)
+    is_notificate = db.Column(db.Boolean, default=False, nullable=False)
     stories = db.relationship('AccountHistory', backref='user')
 
     def check_password(self, password: str) -> bool:

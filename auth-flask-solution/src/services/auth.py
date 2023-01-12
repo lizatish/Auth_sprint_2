@@ -99,6 +99,8 @@ class AuthService:
                 user.username = body.username
             else:
                 return False
+        if (body.is_notificate):
+            user.is_notificate = body.is_notificate
         self.db_connection.session.commit()
         return True
 

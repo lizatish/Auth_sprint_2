@@ -1,8 +1,8 @@
 """Initial migration.
 
-Revision ID: 801e125ce7d2
+Revision ID: 25bc41b33ce8
 Revises: 
-Create Date: 2022-11-10 20:06:52.368947
+Create Date: 2023-01-12 23:25:53.337681
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = '801e125ce7d2'
+revision = '25bc41b33ce8'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,6 +29,7 @@ def upgrade():
     sa.Column('email', sa.String(), nullable=True),
     sa.Column('role_id', postgresql.UUID(as_uuid=True), nullable=True),
     sa.Column('password', sa.String(length=400), nullable=False),
+    sa.Column('is_notificate', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['role_id'], ['role.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),

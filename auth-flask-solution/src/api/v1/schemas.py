@@ -50,6 +50,7 @@ class PasswordChange(BaseModel):
 class UserData(BaseModel):
     """Схема изменения данных пользователя."""
     username: str | None
+    is_notificate: bool | None
 
 
 class UserRole(BaseModel):

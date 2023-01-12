@@ -2,20 +2,22 @@ import uuid
 
 from flask import Blueprint
 from flask_pydantic import validate
+from flask_jwt_extended import jwt_required
 
 from api.v1.schemas import User, Pagination
-from core.jwt import get_jwt_instance
+from decorators import admin_required
 from services.auth import get_auth_service
 from services.json import JsonService
 from services.utils import is_valid_uuid
 
 
 users_v1 = Blueprint('users_v1', __name__)
-jwt = get_jwt_instance()
 
 
 @users_v1.route("/", methods=["GET"])
 @validate()
+@jwt_required()
+@admin_required
 def scope_users(query: Pagination):
     users = get_auth_service().get_users(
         query.page, query.per_page,
@@ -25,6 +27,8 @@ def scope_users(query: Pagination):
 
 
 @users_v1.route("/<user_id>", methods=["GET"])
+@jwt_required()
+@admin_required
 def protected(user_id: uuid.UUID):
     if not is_valid_uuid(user_id):
         return JsonService.return_uuid_fail()
