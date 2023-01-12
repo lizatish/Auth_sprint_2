@@ -1,14 +1,11 @@
 import uuid
 
-from flask import Blueprint, request
-from flask_jwt_extended import get_jwt, current_user, jwt_required
+from flask import Blueprint
 from flask_pydantic import validate
-from pydantic import BaseModel
 
-from api.v1.schemas import RefreshAccessTokensResponse, UserData, PasswordChange, UserRegistration
-from api.v1.schemas import User, AccountHistory, Pagination
+from api.v1.schemas import User, Pagination
 from core.jwt import get_jwt_instance
-from services.auth import AuthService, get_auth_service
+from services.auth import get_auth_service
 from services.json import JsonService
 from services.utils import is_valid_uuid
 
