@@ -205,7 +205,7 @@ def registration(body: UserRegistration):
     user = AuthService.get_user_by_username(body.username)
     if user:
         return JsonService.return_user_exists()
-    get_auth_service().create_user(body.username, body.password)
+    get_auth_service().create_user(body.username, body.password, body.email)
     return JsonService.return_success_response(msg='Successful registration')
 
 

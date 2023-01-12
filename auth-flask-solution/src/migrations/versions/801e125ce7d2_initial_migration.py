@@ -55,6 +55,9 @@ def upgrade():
     op.execute(
         """CREATE TABLE IF NOT EXISTS "account_history_2022" PARTITION OF "accounthistory" FOR VALUES FROM ('2022-1-1 00:00:00') TO ('2023-1-1 00:00:00')"""
     )
+    op.execute(
+        """CREATE TABLE IF NOT EXISTS "account_history_2023" PARTITION OF "accounthistory" FOR VALUES FROM ('2023-1-1 00:00:00') TO ('2024-1-1 00:00:00')"""
+    )
     # ### end Alembic commands ###
 
 

@@ -54,10 +54,10 @@ class AuthService:
             return True
         return False
 
-    def create_user(self, username: str, password: str):
+    def create_user(self, username: str, password: str, email: str):
         """Создать пользователя."""
         role = get_or_create(self.db_connection.session, Role, label=RoleType.STANDARD)
-        user = User(username=username, role=role)
+        user = User(username=username, role=role, email=email)
         user.set_password(password)
         self.db_connection.session.add(user)
         self.db_connection.session.commit()
@@ -133,6 +133,11 @@ class AuthService:
     def get_user_by_id(user_id: str):
         """Получить пользователя по его id."""
         return User.query.get(user_id)
+
+    @staticmethod
+    def get_users(page: int, per_page: int):
+        """Получить всех пользователей с пагинацией."""
+        return User.query.paginate(page=page, per_page=per_page)
 
 
 @lru_cache()
