@@ -31,12 +31,14 @@ def create_app(config_filename: object) -> Flask:
     from api.v1.auth import auth_v1
     from api.v1.roles import roles_v1
     from api.v1.socials import auth_socials_v1
+    from api.v1.users import users_v1
     from core.commands import usersbp
 
     app.register_blueprint(usersbp)
     app.register_blueprint(auth_v1, url_prefix='/auth/v1/users/')
     app.register_blueprint(roles_v1, url_prefix='/auth/v1/roles/')
     app.register_blueprint(auth_socials_v1, url_prefix='/auth/v1/oauth/')
+    app.register_blueprint(users_v1, url_prefix='/protected/v1/users/')
 
     if app.config['ENABLE_TRACER']:
         @app.before_request

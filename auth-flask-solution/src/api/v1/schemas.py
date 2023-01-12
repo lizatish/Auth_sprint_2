@@ -23,6 +23,7 @@ class UserRegistration(BaseModel):
 
     username: str
     password: str
+    email: str
 
     @validator("password")
     def check_storage_type(cls, value):
@@ -74,6 +75,14 @@ class AccountHistory(BaseModel):
 
     id: UUID
     created: datetime.datetime
+
+
+class User(BaseModel):
+    """Схема пользователя."""
+
+    id: UUID
+    username: str
+    email: str
 
 
 class Pagination(BaseModel):
