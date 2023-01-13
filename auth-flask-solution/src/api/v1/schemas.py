@@ -84,6 +84,7 @@ class User(BaseModel):
     id: UUID
     username: str
     email: str
+    is_notificate: bool
 
 
 class Pagination(BaseModel):

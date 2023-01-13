@@ -39,5 +39,6 @@ def protected(user_id: uuid.UUID):
         **User(
             username=user.username,
             email=user.email,
-            id=user.id
+            id=user.id,
+            is_notificate=user.is_notificate
         ).dict())
